@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getWorkers } from '../utils/api';
-import { Search, MapPin, Star, Filter, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
+import { Search, MapPin, Filter } from 'lucide-react';
 
 const SKILLS = ['Carpenter','Electrician','Plumber','Painter','Mason','Driver','Cook','Cleaner','Gardner','Welder','Tailor','Mechanic','Helper'];
 const DISTRICTS = ['Srinagar','Baramulla','Anantnag','Pulwama','Kupwara','Sopore','Budgam','Ganderbal'];
@@ -60,7 +60,7 @@ function WorkerCard({ worker }) {
 }
 
 export default function WorkersPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [workers, setWorkers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -74,7 +74,7 @@ export default function WorkersPage() {
     maxRate: '',
   });
 
-  const fetchWorkers = async () => {
+  const fetchWorkers = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getWorkers(Object.fromEntries(Object.entries(filters).filter(([,v]) => v)));
@@ -82,9 +82,9 @@ export default function WorkersPage() {
       setTotal(res.data.total);
     } catch (e) { console.error(e); }
     setLoading(false);
-  };
+  }, [filters]);
 
-  useEffect(() => { fetchWorkers(); }, []);
+  useEffect(() => { fetchWorkers(); }, [fetchWorkers]);
 
   const handleSearch = (e) => { e.preventDefault(); fetchWorkers(); };
 

@@ -10,7 +10,6 @@ const SKILLS = ['Carpenter','Electrician','Plumber','Painter','Mason','Driver','
 export default function RegisterPage() {
   const [searchParams] = useSearchParams();
   const [role, setRole] = useState(searchParams.get('role') || 'employer');
-  const [step, setStep] = useState(1);
   const [form, setForm] = useState({ name:'', email:'', phone:'', password:'', district:'', area:'', primarySkill:'', skills:[], dailyRate:'', experience:'', bio:'' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

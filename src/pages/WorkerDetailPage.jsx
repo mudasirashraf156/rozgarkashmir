@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getWorker, createBooking } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { MapPin, Phone, Star, Briefcase, Calendar, CheckCircle, Clock } from 'lucide-react';
+import { MapPin, Phone, Briefcase, Calendar, CheckCircle } from 'lucide-react';
 
 const CATEGORIES = ['Construction','Carpentry','Electrical','Plumbing','Painting','Driving','Cooking','Cleaning','Gardening','Welding','Other'];
 
