@@ -27,7 +27,6 @@ const ProtectedRoute = ({ children, roles }) => {
 };
 
 function AppRoutes() {
-  const { user } = useAuth();
   return (
     <>
       {/* Hide navbar on admin login page */}

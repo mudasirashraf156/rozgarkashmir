@@ -23,7 +23,7 @@ export default function DashboardPage() {
       setBookings(bRes.data.bookings.slice(0, 5));
       if (sRes) setStats(sRes.data);
     }).finally(() => setLoading(false));
-  }, []);
+  }, [user.role]);
 
   const handleToggleAvailability = async () => {
     try {

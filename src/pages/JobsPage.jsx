@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getJobs, createJob, applyToJob } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Briefcase, MapPin, Clock, Zap, Plus, X } from 'lucide-react';
+import { MapPin, Clock, Zap, Plus, X } from 'lucide-react';
 
 const CATEGORIES = ['Construction','Carpentry','Electrical','Plumbing','Painting','Driving','Cooking','Cleaning','Gardening','Welding','Tailoring','Other'];
 const DISTRICTS = ['Srinagar','Baramulla','Anantnag','Pulwama','Kupwara','Sopore','Budgam','Ganderbal'];
@@ -59,8 +59,6 @@ function PostJobModal({ onClose, onPost }) {
   const [form, setForm] = useState({ title:'', description:'', category:'', district:'', area:'', payType:'daily', payAmount:'', duration:'', workersNeeded:1, isUrgent:false, skills:[] });
   const [loading, setLoading] = useState(false);
   const [skill, setSkill] = useState('');
-
-  const addSkill = () => { if (skill.trim()) { setForm(f => ({...f, skills:[...f.skills, skill.trim()]})); setSkill(''); } };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); setLoading(true);

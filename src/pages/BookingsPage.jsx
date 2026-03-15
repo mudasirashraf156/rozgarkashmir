@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getBookings, updateBookingStatus, addReview } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { CheckCircle, XCircle, Star, MapPin, Calendar, Phone } from 'lucide-react';
+import { CheckCircle, XCircle, Star, MapPin, Calendar } from 'lucide-react';
 
 function StatusBadge({ status }) {
   const map = { pending:'badge-warning', accepted:'badge-info', rejected:'badge-danger', in_progress:'badge-info', completed:'badge-success', cancelled:'badge-danger' };
@@ -40,16 +40,16 @@ export default function BookingsPage() {
   const [filter, setFilter] = useState('');
   const [reviewBooking, setReviewBooking] = useState(null);
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getBookings(filter ? { status: filter } : {});
       setBookings(res.data.bookings);
     } catch(e) { console.error(e); }
     setLoading(false);
-  };
+  }, [filter]);
 
-  useEffect(() => { fetchBookings(); }, [filter]);
+  useEffect(() => { fetchBookings(); }, [fetchBookings]);
 
   const handleStatus = async (id, status) => {
     try {

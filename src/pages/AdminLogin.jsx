@@ -15,7 +15,7 @@ export default function AdminLogin() {
   // If already logged in as admin, redirect
   React.useEffect(() => {
     if (user?.role === 'admin') navigate('/admin');
-  }, [user]);
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
