@@ -58,7 +58,6 @@ function JobCard({ job, onApply, user }) {
 function PostJobModal({ onClose, onPost }) {
   const [form, setForm] = useState({ title:'', description:'', category:'', district:'', area:'', payType:'daily', payAmount:'', duration:'', workersNeeded:1, isUrgent:false, skills:[] });
   const [loading, setLoading] = useState(false);
-  const [skill, setSkill] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault(); setLoading(true);
@@ -150,16 +149,16 @@ export default function JobsPage() {
   const [showPost, setShowPost] = useState(false);
   const [filter, setFilter] = useState({ category:'', district:'' });
 
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getJobs(Object.fromEntries(Object.entries(filter).filter(([,v])=>v)));
       setJobs(res.data.jobs);
     } catch(e) { console.error(e); }
     setLoading(false);
-  };
+  }, [filter]);
 
-  useEffect(() => { fetchJobs(); }, [filter]);
+  useEffect(() => { fetchJobs(); }, [fetchJobs]);
 
   const handleApply = async (id) => {
     if (!user) { navigate('/login'); return; }
