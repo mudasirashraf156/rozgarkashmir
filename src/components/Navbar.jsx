@@ -95,7 +95,13 @@ export default function Navbar() {
         </div>
       )}
 
-      <style>{`.mobile-toggle { display: none; } @media(max-width:768px){ .mobile-toggle { display: block !important; } .hide-mobile { display: none !important; } }`}</style>
+      <style>{`
+        .mobile-toggle { display: none; } 
+        @media(max-width: 768px){ 
+          .mobile-toggle { display: block !important; padding: 8px; min-width: 44px; min-height: 44px; } 
+          .hide-mobile { display: none !important; } 
+        }
+      `}</style>
     </nav>
   );
 }

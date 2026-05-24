@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LiveBanner from './components/LiveBanner';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -29,6 +30,7 @@ const ProtectedRoute = ({ children, roles }) => {
 function AppRoutes() {
   return (
     <>
+      <LiveBanner />
       {/* Hide navbar on admin login page */}
       {!(window.location.pathname === '/admin/login') && <Navbar />}
       <Routes>

@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: process.env.REACT_APP_API_URL || 'https://rozgarkashmirbackend.onrender.com/api' });
+const API = axios.create({ 
+  baseURL: process.env.REACT_APP_API_URL || 'https://rozgarkashmirbackend.onrender.com/api',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('rk_token');
